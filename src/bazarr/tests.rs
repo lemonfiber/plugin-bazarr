@@ -168,6 +168,22 @@ async fn a_host_or_key_bazarr_could_not_be_pointed_at_is_refused_before_anything
             ..a_curator()
         },
         Watched {
+            host: "radarr:7878".to_owned(),
+            ..a_curator()
+        },
+        Watched {
+            host: "fd00::7".to_owned(),
+            ..a_curator()
+        },
+        Watched {
+            host: "[radarr]".to_owned(),
+            ..a_curator()
+        },
+        Watched {
+            host: "-radarr".to_owned(),
+            ..a_curator()
+        },
+        Watched {
             api_key: "a key".to_owned(),
             ..a_curator()
         },
@@ -179,13 +195,15 @@ async fn a_host_or_key_bazarr_could_not_be_pointed_at_is_refused_before_anything
         ));
         assert!(http.requests().is_empty());
     }
-    let (bazarr, _) = client(vec![(204, "")]);
-    let watched = Watched {
-        host: "10.0.0.5".to_owned(),
-        which: Kind::Tv,
-        ..a_curator()
-    };
-    assert!(bazarr.watch(&watched).await.is_ok());
+    for host in ["10.0.0.5", "[fd00::7]", "radarr.lan"] {
+        let (bazarr, _) = client(vec![(204, "")]);
+        let watched = Watched {
+            host: host.to_owned(),
+            which: Kind::Tv,
+            ..a_curator()
+        };
+        assert!(bazarr.watch(&watched).await.is_ok(), "{host}");
+    }
 }
 
 #[tokio::test]
