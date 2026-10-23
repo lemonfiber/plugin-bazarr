@@ -1,12 +1,12 @@
 use std::sync::Arc;
 
+use lemonfiber_adapter_kit::credential::Holding;
 use lemonfiber_fixtures::http::{Answer, Fake};
 use lemonfiber_ports::http::Method;
 use lemonfiber_ports::media::Kind;
 use lemonfiber_ports::service::{Failure, Subtitles, Watched, Watching};
 
 use super::Bazarr;
-use crate::credential::Holding;
 
 const BASE: &str = "http://127.0.0.1:6767";
 

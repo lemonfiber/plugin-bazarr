@@ -4,14 +4,14 @@ use std::process::ExitCode;
 use std::sync::Arc;
 
 use bazarr_adapter::bazarr::Bazarr;
-use bazarr_adapter::credential::Upstream;
-use bazarr_adapter::settings::{asked, Asked, Settings};
-use bazarr_adapter::web::Web;
+use lemonfiber_adapter_kit::credential::Upstream;
+use lemonfiber_adapter_kit::settings::{asked, Asked, Settings};
+use lemonfiber_adapter_kit::web::Web;
 use lemonfiber_contract::adapter::about_path;
 
 #[tokio::main]
 async fn main() -> ExitCode {
-    let outcome = match asked(std::env::args().skip(1)) {
+    let outcome = match asked(std::env::args().skip(1), bazarr_adapter::adapter::ADDRESS) {
         Ok(Asked::Serve(settings)) => serve(&settings).await,
         Ok(Asked::Health(settings)) => health(&settings).await,
         Err(why) => Err(why),
@@ -35,7 +35,10 @@ async fn serve(settings: &Settings) -> Result<(), String> {
     let bazarr = Bazarr::new(
         Arc::new(web),
         settings.upstream.clone(),
-        Arc::new(Upstream::in_directory(&settings.configuration)),
+        Arc::new(Upstream::in_directory(
+            &settings.configuration,
+            bazarr_adapter::adapter::API_KEY,
+        )),
     );
     let listener = tokio::net::TcpListener::bind(&settings.listen)
         .await

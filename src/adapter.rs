@@ -8,6 +8,12 @@ use lemonfiber_contract::capabilities::subtitles;
 
 use crate::bazarr::Bazarr;
 
+/// Where Bazarr answers, by its service id and the port it listens on.
+pub const ADDRESS: &str = "http://bazarr:6767";
+
+/// The part of `upstream.json` holding the key Bazarr answers its API to.
+pub const API_KEY: &str = "api_key";
+
 /// The upstream this adapter fronts, as its project names itself.
 pub const UPSTREAM: &str = "Bazarr";
 

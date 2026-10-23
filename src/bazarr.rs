@@ -4,13 +4,12 @@
 use std::sync::Arc;
 
 use async_trait::async_trait;
+use lemonfiber_adapter_kit::credential::{spelled_as_a_key, Holding};
+use lemonfiber_adapter_kit::endpoint::{form_encoded, Endpoint};
 use lemonfiber_ports::http::{Http, Method, Request};
 use lemonfiber_ports::media::Kind;
 use lemonfiber_ports::service::{Failure, Subtitles, Watched, Watching};
 use serde::Deserialize;
-
-use crate::credential::{spelled_as_a_key, Holding};
-use crate::endpoint::{form_encoded, Endpoint};
 
 /// What every failure is blamed on.
 pub const SERVICE: &str = "bazarr";
