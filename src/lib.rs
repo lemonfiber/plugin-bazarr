@@ -3,7 +3,3 @@
 
 pub mod adapter;
 pub mod bazarr;
-pub mod credential;
-mod endpoint;
-pub mod settings;
-pub mod web;
