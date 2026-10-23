@@ -191,10 +191,20 @@ fn field(section: &str, name: &str) -> String {
 }
 
 fn a_host(host: &str) -> bool {
+    if let Some(inside) = host
+        .strip_prefix('[')
+        .and_then(|rest| rest.strip_suffix(']'))
+    {
+        return inside.contains(':')
+            && inside
+                .bytes()
+                .all(|byte| byte.is_ascii_hexdigit() || byte == b':' || byte == b'.');
+    }
     (1..=LONGEST_HOST).contains(&host.len())
+        && !host.starts_with(['-', '.'])
         && host
-            .chars()
-            .all(|letter| letter.is_ascii_alphanumeric() || matches!(letter, '-' | '.' | ':'))
+            .bytes()
+            .all(|byte| byte.is_ascii_alphanumeric() || byte == b'-' || byte == b'.')
 }
 
 #[cfg(test)]
