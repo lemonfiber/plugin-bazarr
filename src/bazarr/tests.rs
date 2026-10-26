@@ -19,7 +19,12 @@ const SETTINGS: &str = r#"{
 }"#;
 
 fn client(replies: Vec<(u16, &'static str)>) -> (Bazarr, Arc<Fake>) {
-    let http = Fake::scripted(replies);
+    let http = Fake::in_turn(
+        replies
+            .into_iter()
+            .map(|(status, body)| Answer::reply(status, body))
+            .collect(),
+    );
     (
         Bazarr::new(http.clone(), BASE, Arc::new(KEY.to_owned())),
         http,

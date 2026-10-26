@@ -49,6 +49,7 @@ id     = "upstream-key"
 of     = "bazarr"
 minted = true
 why    = "The key Bazarr answers its API to, which the adapter in front of it presents"
+carried_from = { file = "/config/config/config.yaml", format = "yaml", key = "auth.apikey" }
 
 [[proof]]
 id      = "bazarr.guarded"
