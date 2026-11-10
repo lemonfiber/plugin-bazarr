@@ -68,6 +68,7 @@ expect  = { status = 401, json_types = { message = "str" } }
 [[ask]]
 service    = "bazarr"
 capability = "library.curate"
+native     = "servarr"
 each       = true
 
 [[ask]]
