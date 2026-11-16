@@ -20,8 +20,7 @@ pub const UPSTREAM: &str = "Bazarr";
 /// The Bazarr release this adapter's recordings were taken from.
 pub const RELEASE: &str = "v1.6.2-ls367";
 
-/// The digest of the image that release's recordings were taken from.
-pub const DIGEST: &str = "sha256:c1673816321156b904af9b7e6415ea547ae9622e4acc375358f1e1eb9ed1e904";
+include!(concat!(env!("OUT_DIR"), "/fronted.rs"));
 
 /// What this adapter says it is: the contract it speaks and the release it supports.
 #[must_use]
