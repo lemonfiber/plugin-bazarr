@@ -78,6 +78,7 @@ impl Bazarr {
             headers: Vec::new(),
             body: None,
             pinned: None,
+            deadline: None,
         };
         self.endpoint
             .send(&request)
@@ -100,6 +101,7 @@ impl Bazarr {
             headers,
             body: form,
             pinned: None,
+            deadline: None,
         })
     }
 }
